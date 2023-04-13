@@ -1,1 +1,1 @@
-# snakegame
+# This is a slightly upgraded code for the Snake Game. I have modified it so that when the snake goes into the border, it does not simply stop and lose a life, but its head goes to another border of the canvas and then loses a life. (when you go up beyond the canvas, the head appears down below, and vice versa). I also had an idea of implementing a score count at the top of the canvas, but for some reason the text just wasn't visible. I also reduced the amount of lives.
