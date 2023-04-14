@@ -49,7 +49,6 @@ class SnakeModel:
 
         for i in range(1, len(self.body)):
             if self.body[0] == self.body[i]:
-                self.lives -= 1
                 if self.lives == 0:
                     print("Game Over!")
                     exit()
@@ -115,7 +114,6 @@ def key_pressed(e):
 def display_snake():
     for bp in model.body:
         canvas.create_rectangle(bp[0], bp[1], bp[0] + 10, bp[1] + 10, fill="green")
-
 
 window = Tk()
 model = SnakeModel()
