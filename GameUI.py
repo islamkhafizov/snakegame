@@ -1,13 +1,10 @@
-from tkinter import Tk, Canvas
+from tkinter import Tk, Canvas, Label
 import random
-
-# EXERCISE 1: Make fruit appear 10 pixels away from the border
-# EXERCISE 2: When snake head hits the border, don't move out of canvas
-#             decrease lives, and if lives becomes ZERO, game over.
 
 class SnakeModel:
     def __init__(self):
         self.lives = 3
+        self.score = 0
         self.body = [
             [200, 200],
             [200, 210],
@@ -36,6 +33,8 @@ class SnakeModel:
         if self.fruit[0] == self.body[0][0] and self.fruit[1] == self.body[0][1]:
             self.body.append([self.body[-1][0], self.body[-1][1]])
             self.set_fruit_position()
+            self.score += 100
+            score.config(text=f"Score: {self.score}")
 
     def check_game_over(self):
         if self.body[0][0] < 0 or self.body[0][0] > 390 or self.body[0][1] < 0 or self.body[0][1] > 390:
@@ -46,7 +45,7 @@ class SnakeModel:
             else:
                 self.body[0][0] %= 400
                 self.body[0][1] %= 400
-                self.lives -= 1
+                lives_label.config(text=f"Lives: {self.lives}")
 
         for i in range(1, len(self.body)):
             if self.body[0] == self.body[i]:
@@ -54,6 +53,9 @@ class SnakeModel:
                 if self.lives == 0:
                     print("Game Over!")
                     exit()
+                else:
+                    self.lives -= 1
+                    lives_label.config(text=f"Lives: {self.lives}")
 
     def move_up(self):
         if self.direction != "Down":
@@ -120,9 +122,13 @@ model = SnakeModel()
 
 canvas = Canvas(window, bg="white", width=400, height=400)
 canvas.grid(row=0, column=0)
+score = Label(text = f"Score: {model.score}")
+score.grid(row=1, column=0)
 
 
 display_snake()
+lives_label = Label(text=f"Lives: {model.lives}")
+lives_label.grid(row=2, column=0)
 canvas.create_rectangle(model.fruit[0], model.fruit[1], model.fruit[0] + 10, model.fruit[1] + 10, fill="red")
 window.bind('<KeyRelease>', key_pressed)
 
